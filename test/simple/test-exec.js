@@ -41,6 +41,17 @@ exec("sleep 10", { timeout: 50 }, function (err, stdout, stderr) {
   assert.equal(err.signal, 'SIGKILL');
 });
 
+
+var killMeTwice = exec("sleep 3", { timeout: 1000 }, function killMeTwiceCallback(err, stdout, stderr) {
+  assert.ok(err);
+  assert.ok(err.killed);
+  assert.equal(err.signal, 'SIGTERM');
+});
+process.nextTick(function(){
+  killMeTwice.kill();
+});
+
+
 exec('python -c "print 200000*\'C\'"', { maxBuffer: 1000 }, function (err, stdout, stderr) {
   assert.ok(err);
   assert.ok(err.killed);
