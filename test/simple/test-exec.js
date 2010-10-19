@@ -35,7 +35,7 @@ exec("ls /DOES_NOT_EXIST", function (err, stdout, stderr) {
   }
 });
 
-exec("sleep 10", { timeout: 50 }, function (err, stdout, stderr) {
+exec("sleep 3", { timeout: 50 }, function (err, stdout, stderr) {
   assert.ok(err);
   assert.ok(err.killed);
   assert.equal(err.signal, 'SIGKILL');
